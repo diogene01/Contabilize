@@ -1,0 +1,343 @@
+html {
+    font-size: 62.5%; /* 62.5% de 16px (tamanho padrão) é igual a 10px */
+    font-family: 'Poppins', sans-serif;
+    color: gray;
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    font-size: 1.4rem;
+    border: 1px solid gray;
+    margin: 0;
+    padding: 0;
+    position: relative;
+}
+
+button, input, select, textarea, option, a{
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.4;
+    color: gray;
+}
+
+button:hover{
+    cursor: pointer;
+}
+
+.div_navbar{
+    border: 1px solid gray;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0 3rem;
+}
+
+nav{
+    width: 40%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+nav a{
+    text-decoration: none;
+    color: gray;
+}
+
+.div_menu{
+    border: 1px solid gray;
+    padding: 2rem 3rem;
+}
+
+.div_menu button{
+    height: 3rem;
+}
+
+.div_escolheProdutos{
+    border: 1px solid gray;        
+    width: 70%;
+    margin: 0 auto; 
+    padding: 2rem;
+    display: block;
+} 
+ 
+.div_produtos{
+    display: flex; 
+    flex-direction: row; 
+    justify-content: space-evenly;
+    align-items: center;
+}         
+ 
+.div_search{
+    display: inline-block;
+    position: relative;
+}
+
+.content{
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 3rem;
+    width: 100%;
+}
+
+.produto{
+    padding: 0.5rem;
+    background-color: white;
+    border: 1px solid gray;
+}
+
+.produto:hover{
+    cursor: pointer;
+}
+
+.produto.openProdutos{
+    display: block;
+}
+
+.div_search input{
+    width: 30rem;
+    height: 3rem;
+}
+
+table{
+    margin: 4rem auto;
+    width: 100%;
+    border: 1px solid gray;
+    border-collapse: collapse;
+}
+
+td{
+    text-align: center;
+    border-bottom: 1px solid gray;
+}
+
+.div_subTotal{
+    display: flex;
+    justify-content: end;
+}
+
+.div_irPagamento{
+    margin:0 auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.div_irPagamento button{
+    height: 3rem;
+}
+
+.janela_modal{
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5);;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+}
+
+.modal{
+    width: 25rem;
+    background-color: white;
+    position: relative;
+    padding: 2rem;
+}
+
+.button_fechar{
+    position: absolute;
+    top: -0.5rem;
+    right: -0.5rem;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    align-items: center;
+    border: 0.1rem solid black;
+    background-color: white;
+}
+
+.button_fechar:hover{
+    cursor: pointer;
+}
+
+.janela_modal.open{
+    display: flex;
+}
+
+.div_nomeProduto, .div_valorProduto, .div_quantidadeProduto, .div_precoTotal{
+    align-items: center;
+    text-align: center;
+    padding: 1rem 0;
+}
+
+.div_quantidadeProduto{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    text-align: center;
+}
+
+.div_quantidadeProduto img{
+    width: 3rem;
+    height: 3rem;
+}
+
+.div_quantidadeProduto img:hover{
+    cursor: pointer;
+}
+
+.div_quantidadeProduto input{
+    width: 5rem;
+    height: 3rem;
+}
+
+.div_buttonAdicionar button{
+    width: 100%;
+    height: 4rem;
+}
+
+/* Tirando as setas dentro do input type:number*/
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Style do Pagamento */
+.div_pagamento{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 70%;
+    margin: 0 auto;
+    z-index: 20;
+    border: 2px solid gray;
+    margin-bottom: 2rem;
+}
+
+.div_pedido{
+    width: 35%;
+    height: 45.4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-right: 2px solid gray;
+}
+
+.div_detalhesPedido{
+    padding-bottom: 2rem;
+}
+
+.div_pessoasPagar, .div_totalPorPessoa, .div_pagamentoSubtotal, .div_desconto, .div_valorPagar, .div_inserirCPF{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0.2rem;
+}
+
+.div_pessoasPagar{
+    border-top: 1px solid gray;
+}
+
+.div_pessoasPagar input{
+    width: 4rem;
+    height: 2rem;
+}
+
+.div_totalPorPessoa{
+    border-bottom: 1px solid gray;
+}
+
+.div_metodosPagamento{
+    width: 65%;
+    height: 100%;
+}
+
+/*Classe que é adicionada através do JS para os items na parte de pagamento*/
+.pagamento_itemsSelecionados{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0 1rem 0.3rem 1rem;
+}
+
+.div_escolherMetodo{
+    width: 85%;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: auto auto auto;
+    gap: 2rem 0.7rem;
+    margin-bottom: 2rem;
+}
+
+.div_escolherMetodo button{
+    width: 12rem;
+    height: 5rem;
+}
+
+.div_metodoEscolhido{
+    width: 85%;
+    height: 18rem;
+    border: 1px solid black;
+    margin: 0 auto;
+    margin-bottom: 2rem;
+}
+
+.div_finalizarPedido{
+    width: 85%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 0 auto 2rem auto;
+}
+
+.div_finalizarPedido button{
+    width: 9rem;
+}
+
+/*Classe adicionada a cada div do método de pagamento que vai ser exibido na tela*/
+.metodoEscolhido{
+    border-bottom: 1px solid gray;
+    padding: 0.7rem 1rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.div_criaScrool{
+    max-height: 13rem;  /* Define a altura máxima */
+    overflow-y: auto;   /* Adiciona scroll vertical quando o conteúdo ultrapassar a altura */
+}
+
+.produtos_a_Pagar{
+    max-height: 19rem;  /* Define a altura máxima */
+    overflow-y: auto;   /* Adiciona scroll vertical quando o conteúdo ultrapassar a altura */
+}
+
+.div_IdMetodo{
+    display: inline;
+}
+
+.div_precoIcone{
+    width: 13rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.iconeLixo{
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+.iconeLixo:hover{
+    cursor: pointer;
+}
+
+
+

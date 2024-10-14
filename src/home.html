@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contabilize</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/home_style.css">
+</head>
+<body>
+    <div class="div_navbar">
+        <nav>
+            <a href="#">Pedidos</a>
+            <a href="#">Produtos</a>
+            <a href="#">Financeiro</a>
+            <a href="#">Configurações</a>
+        </nav>
+        <div class="div_logo">
+            Contabilize
+        </div>
+    </div>
+    <div class="div_menu">
+        <button>Vender</button>
+        <button>Últimos Pedidos</button>
+    </div>
+    <main>
+        <div class="div_escolheProdutos">
+            <div class="div_produtos">
+                <label for="browsers">Produto:</label>
+                <div class="div_search">
+                    <input type="search" id="produtos"  oninput="filtraProdutos()" onfocus="colocaProdutos()" onblur="tiraProdutos()">
+                    <div class="content">
+
+                    </div>
+                </div>
+                <button>Abrir Lista de Produtos</button>
+            </div>
+            <table>
+                <tr>
+                    <th>Item</th>
+                    <th>Produto</th>
+                    <th>Quantidade</th>
+                    <th>Valor Unitário</th>
+                    <th>Total</th>
+                </tr>
+            </table>
+            <div class="div_subTotal">
+                
+            </div>
+            <div class="div_irPagamento">
+                <button onclick="cancelarOperacao()">Cancelar</button>
+                <button onclick="addItemsPagamento()">Ir para o pagamento</button>
+            </div>
+        </div>
+
+            <!-- Modal para escolher a quantidade dos produtos-->
+        <div class="janela_modal" id="janela_modal">
+            <div class="modal">
+                <button class="button_fechar" id="fechar" onclick="closeModal()">X</button>
+                <div class="div_nomeProduto"></div>
+                <div class="div_valorProduto"></div>
+                <div class="div_quantidadeProduto">
+                    <img src="../assets/img/sinalMenos.png" alt="sinalMenos" onclick="diminuiQuantidadeProduto()">
+                    <input type="number" id="quantidadeProduto" value="1" oninput="digitarQuantidadeProduto()" onblur="atualizaPrecoTotal()">
+                    <img src="../assets/img/sinalMais.png" alt="sinalMais" onclick="aumentaQuantidadeProduto()">
+                </div>
+                <div class="div_precoTotal"></div>
+                <div class="div_buttonAdicionar">
+                    <button onclick="adicionaItemsSelecionados()">Adicionar</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pagamentos -->
+        <div class="div_pagamento">
+            <div class="div_pedido">
+                <div>
+                    <h2>Pedido</h2>
+                    <div class="produtos_a_Pagar"></div>
+                </div>
+                <div class="div_detalhesPedido">
+                    <div class="div_pessoasPagar">
+                        <span>Pessoas a pagar: </span>
+                        <input type="number" id="quantidadePessoa" onblur="calculaTotalPessoa()">
+                    </div>
+                    <div class="div_totalPorPessoa">
+                       
+                    </div>
+                    <div class="div_pagamentoSubtotal">
+                        
+                    </div>
+                    <div class="div_desconto">
+                        <span>Desconto</span>
+                        <span>R$ 00,00</span>
+                    </div>
+                    <div class="div_valorPagar">
+                        <span>Valor a pagar</span>
+                        <span>R$ 18,50</span>
+                    </div>
+                    <div class="div_inserirCPF">
+                        <button>Desconto</button>
+                        <button>Inserir CPF</button>
+                    </div>
+                </div>
+            </div>
+            <div class="div_metodosPagamento">
+                <h2>Método de pagamento</h2>
+                <div class="div_escolherMetodo">
+                    <button onclick="insertMetodoDinheiro()">Dinheiro</button>
+                    <button onclick="insertMetodoCredito()">Cartão crédito</button>
+                    <button onclick="insertMetodoDebito()">Cartão débito</button>
+                    <button onclick="insertMetodoPix()">Pix</button>
+                    <button onclick="insertMetodoValeRefeicao()">Vale Refeição</button>
+                    <button onclick="insertMetodoValeAlimentacao()">Vale Alimentação</button>
+                </div>
+                <div class="div_metodoEscolhido">
+                    <div class="div_criaScrool"></div>
+                </div>
+                <div class="div_finalizarPedido">
+                    <button>Voltar</button>
+                    <button>Gerar NF</button>
+                    <button>Finalizar</button>
+                </div>
+            </div>
+        </div>
+
+    </main>
+</body>
+    <script src="../assets/js/home_script.js"></script>
+</html>

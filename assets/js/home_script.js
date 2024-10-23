@@ -1,4 +1,4 @@
-//Cocando o elmento com a class="content" dentro da variavel content
+//Cocando o elemento com a class="content" dentro da variavel content
 //Colocando o input com o tipo search dentro da variavel inputSearch;
 const content = document.querySelector('.content');
 const inputSearch = document.querySelector("input[type='search']");
@@ -32,21 +32,25 @@ function tiraProdutos(){
     }, 100);
 }
 
-//Cria um elemento div e dentro coloca o nome do produto, após isso adiciona uma classe à div;
-//
+//Função que cria um elemento div e dentro coloca o nome do produto, após isso adiciona uma classe à div;
 function addHTML(item) {
     const div = document.createElement("div");
     div.innerHTML = item.nome;
     div.classList.add("produto"); // Adiciona a classe produto à div
     content.append(div); // O appen é para adicionar a div criada dentro da div 'content';
 
-    //Adiciona o evendo de ao clicar em algum item ele exibe no console, coloca o 'item' dentro da variavel 'protudo' e chama as funções de exibição;
-    div.onclick = () => {
+
+    const handleInteraction = () => {
         produto = item;
         console.log('Produto: ' + item.nome);
-        insertIformacoesProduto(produto)
+        insertIformacoesProduto(produto);
         openModal();
-    }
+    };
+
+    
+    // Adiciona eventos de clique e toque
+    div.addEventListener('click', handleInteraction);
+    div.addEventListener('touchstart', handleInteraction);
 }
 
 
@@ -159,7 +163,7 @@ function atualizaPrecoTotal(){
 
     produto.precoTotal = produto.quantidade * produto.preco;
 
-    let precoTotalFormatado = formatarValorParaReal(produto.precoTotal)
+    const precoTotalFormatado = formatarValorParaReal(produto.precoTotal)
 
     valorTotal.innerHTML = '';
 
@@ -262,8 +266,8 @@ function addItemsPagamento(){
 
     itemsSelecionados.forEach((item,index) => {
         const div = document.createElement("div");
-        
         const precoTotal = formatarValorParaReal(item.precoTotal)
+        
 
         div.innerHTML = `
         <span>${index + 1}</span>
@@ -276,11 +280,32 @@ function addItemsPagamento(){
 
         //Adiciona dentro da div .produtos_a_Pagar
         produtoPagar.append(div);
+
     })
 
-    //Chama as funções que calcula o total por pessoa, e a função que mostra o total da compra.
-    calculaTotalPessoa();
-    insertDetalhesPagamento();
+    if(itemsSelecionados == ''){
+        return;
+    }else{
+        document.getElementById('quantidadePessoa').value = 1;
+        //Chama as funções que calcula o total por pessoa, e a função que mostra o total da compra.
+        calculaTotalPessoa();
+        insertDetalhesPagamento();
+        calculaPagoAndFalta();
+        openAndCloseModalPagamento();
+        
+    }
+
+}
+
+//Função que toda vez que for chamada abre e fecha a janela de pagamento.
+function openAndCloseModalPagamento(){
+    const modal_pagamento = document.querySelector(".janela_modal_pagamento")
+
+    if(modal_pagamento.style.display === "none" || modal_pagamento.style.display === ""){
+        modal_pagamento.style.display = "flex";
+    }else{
+        modal_pagamento.style.display = "none";
+    }
 }
 
 
@@ -338,9 +363,10 @@ function addMetodosPagamentos(){
         const div_precoIcone = document.createElement("div");
         div_precoIcone.classList.add("div_precoIcone");
 
+        const valorItemFormatado = formatarValorParaReal(item.valor)
         // Adiciona o preço
         const preco = document.createElement("span");
-        preco.innerHTML = 'R$ 10,00';
+        preco.innerHTML = valorItemFormatado;
         div_precoIcone.append(preco);
 
         //Adiciona o icone de lixo
@@ -367,102 +393,140 @@ function addMetodosPagamentos(){
             console.log(metodosPagamentos);
 
             addMetodosPagamentos();
+            calculaPagoAndFalta()
         }
     })
 }
 
-function insertMetodoDinheiro(){
-    const quantPessoaPagar = document.getElementById('quantidadePessoa').value;
-    const dinheiro = {id: 1, nome: 'Dinheiro'};
 
-    if(metodosPagamentos.length > quantPessoaPagar){
-        alert('A quantidade de métodos de pagamento não é igual a quantidades de pessoas a pagar !')
-        return;
+function openAndCloseModalMetodoPagamento(){
+    const modal_metodoPagamento = document.querySelector('.janela_modal_metodosPagamento');
+    
+    if(modal_metodoPagamento.style.display === "none" || modal_metodoPagamento.style.display === "" ){
+        modal_metodoPagamento.style.display = "flex";
+    }else{
+        modal_metodoPagamento.style.display = "none";
     }
+}
 
-    metodosPagamentos.push(dinheiro)
 
-    addMetodosPagamentos()
+
+function insertMetodoDinheiro(){
+    const dinheiro = {id: 1, nome: 'Dinheiro', valor: 10};
+
+    escolherValorMetodo(dinheiro)
+    openAndCloseModalMetodoPagamento()
+    
 }
 
 function insertMetodoCredito(){
-    const quantPessoaPagar = document.getElementById('quantidadePessoa').value;
-    const credito = {id: 2, nome: 'Cartão de Crédito'};
+    const credito = {id: 2, nome: 'Cartão de Crédito', valor: 10};
+    
+    escolherValorMetodo(credito)
+    openAndCloseModalMetodoPagamento()
     
 
-    if(metodosPagamentos.length > quantPessoaPagar){
-        alert('A quantidade de métodos de pagamento não é igual a quantidades de pessoas a pagar !')
-        return;
-    }
-
-    metodosPagamentos.push(credito)
-
-    addMetodosPagamentos()
 }
 
 function insertMetodoDebito(){
-    const quantPessoaPagar = document.getElementById('quantidadePessoa').value;
-    const debito = {id: 3, nome: 'Cartão de Débito'};
+    const debito = {id: 3, nome: 'Cartão de Débito', valor: 10};
    
-
-    if(metodosPagamentos.length > quantPessoaPagar){
-        alert('A quantidade de métodos de pagamento não é igual a quantidades de pessoas a pagar !')
-        return;
-    }
+    escolherValorMetodo(debito)
+    openAndCloseModalMetodoPagamento()
     
-    metodosPagamentos.push(debito)
-
-    addMetodosPagamentos()
 }
 
 function insertMetodoPix(){
-    const quantPessoaPagar = document.getElementById('quantidadePessoa').value;
-    const pix = {id: 4, nome: 'Pix'};
+    const pix = {id: 4, nome: 'Pix', valor: 10};
     
-
-    if(metodosPagamentos.length > quantPessoaPagar){
-        alert('A quantidade de métodos de pagamento não é igual a quantidades de pessoas a pagar !')
-        return;
-    }
-
-    metodosPagamentos.push(pix)
-
-    addMetodosPagamentos()
+    escolherValorMetodo(pix)
+    openAndCloseModalMetodoPagamento()
+    
 }
 
 function insertMetodoValeRefeicao(){
-    const quantPessoaPagar = document.getElementById('quantidadePessoa').value;
-    const valeRefeicao = {id: 5, nome: 'Vale Refeição'};
+    const valeRefeicao = {id: 5, nome: 'Vale Refeição', valor: 10};
     
-
-    if(metodosPagamentos.length > quantPessoaPagar){
-        alert('A quantidade de métodos de pagamento não é igual a quantidades de pessoas a pagar !')
-        return;
-    }
-
-    metodosPagamentos.push(valeRefeicao)
-
-    addMetodosPagamentos()
+    escolherValorMetodo(valeRefeicao)
+    openAndCloseModalMetodoPagamento()
+    
 }
 
 function insertMetodoValeAlimentacao(){
-    const quantPessoaPagar = document.getElementById('quantidadePessoa').value;
-    const valeAlimentacao = {id: 6, nome: 'Vale Alimentação'};
+    const valeAlimentacao = {id: 6, nome: 'Vale Alimentação', valor: 10};
     
-
-    if(metodosPagamentos.length > quantPessoaPagar){
-        alert('A quantidade de métodos de pagamento não é igual a quantidades de pessoas a pagar !')
-        return;
-    }
-
-    metodosPagamentos.push(valeAlimentacao)
-
-    addMetodosPagamentos()
+    escolherValorMetodo(valeAlimentacao)
+    openAndCloseModalMetodoPagamento()
+    
 }
 
 
 
+function escolherValorMetodo(metodo){
+    const div_metodoEscolhido = document.querySelector('.div_nomeMetodoEscolhido');
+    const valorDigitadoMetodo = document.getElementById('valorDigitadoMetodo');
 
+    valorDigitadoMetodo.value = '';
+
+    div_metodoEscolhido.innerHTML = `
+    <span>${metodo.nome}</span>
+    `
+    valorDigitadoMetodo.onblur = () => {
+        if(valorDigitadoMetodo.value < 0 || valorDigitadoMetodo.value === ''){
+            valorDigitadoMetodo.value = 0;
+        }else{
+            metodo.valor = valorDigitadoMetodo.value;
+            metodosPagamentos.push(metodo);
+
+            console.log(metodo);
+            console.log(metodosPagamentos)
+        }
+    }
+}
+
+function calculaPagoAndFalta(){
+    const div_faltaPago = document.querySelector('.div_faltaPago');
+
+    let pago = 0;
+
+    metodosPagamentos.forEach(item => {
+        item.valor = parseFloat(item.valor)
+        pago += item.valor;
+    })
+
+    let falta = somaTotalProdutos - pago;
+
+    falta = formatarValorParaReal(falta);
+
+    pago = formatarValorParaReal(pago);
+
+
+
+    div_faltaPago.innerHTML = `
+    <span>Falta: ${falta}</span>
+    <span>Pago: ${pago}</span>
+    `
+}
+
+function concluirOperacaoMetodoPagamento(){
+    const valorDigitadoMetodo = document.getElementById('valorDigitadoMetodo');
+
+    addMetodosPagamentos();
+    openAndCloseModalMetodoPagamento();
+
+    if(valorDigitadoMetodo.value == ''){
+        valorDigitadoMetodo.value = 0;
+    }
+
+    calculaPagoAndFalta()
+}
+
+
+function voltarProcesso(){
+    openAndCloseModalPagamento();
+
+    metodosPagamentos = [];
+}
 
 
 

@@ -72,55 +72,72 @@
         </div>
 
         <!-- Pagamentos -->
-        <div class="div_pagamento">
-            <div class="div_pedido">
-                <div>
-                    <h2>Pedido</h2>
-                    <div class="produtos_a_Pagar"></div>
-                </div>
-                <div class="div_detalhesPedido">
-                    <div class="div_pessoasPagar">
-                        <span>Pessoas a pagar: </span>
-                        <input type="number" id="quantidadePessoa" onblur="calculaTotalPessoa()">
+        <div class="janela_modal_pagamento">
+            <div class="div_pagamento">
+                <div class="div_pedido">
+                    <div>
+                        <h2>Pedido</h2>
+                        <div class="produtos_a_Pagar"></div>
                     </div>
-                    <div class="div_totalPorPessoa">
-                       
-                    </div>
-                    <div class="div_pagamentoSubtotal">
+                    <div class="div_detalhesPedido">
+                        <div class="div_pessoasPagar">
+                            <span>Pessoas a pagar: </span>
+                            <input type="number" id="quantidadePessoa" onblur="calculaTotalPessoa()">
+                        </div>
+                        <div class="div_totalPorPessoa">
                         
-                    </div>
-                    <div class="div_desconto">
-                        <span>Desconto</span>
-                        <span>R$ 00,00</span>
-                    </div>
-                    <div class="div_valorPagar">
-                        <span>Valor a pagar</span>
-                        <span>R$ 18,50</span>
-                    </div>
-                    <div class="div_inserirCPF">
-                        <button>Desconto</button>
-                        <button>Inserir CPF</button>
+                        </div>
+                        <div class="div_pagamentoSubtotal">
+                            
+                        </div>
+                        <div class="div_desconto">
+                            <span>Desconto</span>
+                            <span>R$ 00,00</span>
+                        </div>
+                        <div class="div_valorPagar">
+                            <span>Valor a pagar</span>
+                            <span>R$ 18,50</span>
+                        </div>
+                        <div class="div_inserirCPF">
+                            <button>Desconto</button>
+                            <button>Inserir CPF</button>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="div_metodosPagamento">
-                <h2>Método de pagamento</h2>
-                <div class="div_escolherMetodo">
-                    <button onclick="insertMetodoDinheiro()">Dinheiro</button>
-                    <button onclick="insertMetodoCredito()">Cartão crédito</button>
-                    <button onclick="insertMetodoDebito()">Cartão débito</button>
-                    <button onclick="insertMetodoPix()">Pix</button>
-                    <button onclick="insertMetodoValeRefeicao()">Vale Refeição</button>
-                    <button onclick="insertMetodoValeAlimentacao()">Vale Alimentação</button>
+                <div class="div_metodosPagamento">
+                    <h2>Método de pagamento</h2>
+                    <div class="div_escolherMetodo">
+                        <button onclick="insertMetodoDinheiro()">Dinheiro</button>
+                        <button onclick="insertMetodoCredito()">Cartão crédito</button>
+                        <button onclick="insertMetodoDebito()">Cartão débito</button>
+                        <button onclick="insertMetodoPix()">Pix</button>
+                        <button onclick="insertMetodoValeRefeicao()">Vale Refeição</button>
+                        <button onclick="insertMetodoValeAlimentacao()">Vale Alimentação</button>
+                    </div>
+                    <div class="div_metodoEscolhido">
+                        <div class="div_criaScrool"></div>
+                        <div class="div_faltaPago"></div>
+                    </div>
+                    <div class="div_finalizarPedido">
+                        <button onclick="voltarProcesso()">Voltar</button>
+                        <button>Gerar NF</button>
+                        <button>Finalizar</button>
+                    </div>
                 </div>
-                <div class="div_metodoEscolhido">
-                    <div class="div_criaScrool"></div>
-                </div>
-                <div class="div_finalizarPedido">
-                    <button>Voltar</button>
-                    <button>Gerar NF</button>
-                    <button>Finalizar</button>
-                </div>
+
+                <!-- Modal para poder inserir o valor que deseja pagar em cada método -->
+                <div class="janela_modal_metodosPagamento">
+                    <div class="div_escolherValorMetodo">
+                        <div class="div_nomeMetodoEscolhido">
+
+                        </div>
+                        <div class="div_valorDigitadoMetodo">
+                            <span>Digite o valor</span>
+                            <input type="number" id="valorDigitadoMetodo">
+                        </div>
+                        <button onclick="concluirOperacaoMetodoPagamento()">Concluir</button>
+                    </div>
+                </div> 
             </div>
         </div>
 

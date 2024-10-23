@@ -208,7 +208,21 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 
 /* Style do Pagamento */
+.janela_modal_pagamento{
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+}
+
 .div_pagamento{
+    position: relative;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -217,6 +231,7 @@ input[type="number"]::-webkit-inner-spin-button {
     z-index: 20;
     border: 2px solid gray;
     margin-bottom: 2rem;
+    background-color: white;
 }
 
 .div_pedido{
@@ -285,6 +300,9 @@ input[type="number"]::-webkit-inner-spin-button {
     border: 1px solid black;
     margin: 0 auto;
     margin-bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .div_finalizarPedido{
@@ -339,5 +357,31 @@ input[type="number"]::-webkit-inner-spin-button {
     cursor: pointer;
 }
 
+.janela_modal_metodosPagamento{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.2);
+    align-items: center;
+    display: none;
+    justify-content: center;
+}
 
+.div_escolherValorMetodo{
+    width: 30rem;
+    height: 15rem;
+    background-color: white;
+    border: 2px solid gray;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
 
+.div_faltaPago{
+    border-top: 1px solid gray;
+    padding: 0.5rem 1rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}

@@ -75,9 +75,6 @@ function valores() {
 //Chamando a função valores;
 valores()
 
-
-console.log('Esta conectado')
-
 //Abri a tela(modal) que mostra as informações do produto selecionado, e adiciona a classe open que exibe a tela
 function openModal(){
     const modal = document.getElementById('janela_modal')
@@ -251,11 +248,7 @@ function cancelarOperacao(){
     console.log('Operação Cancelada')
 }
 
-// function openPagamento(){
-//     const div_pagamento = document.querySelector('.div_pagamento');
-
-//     div_pagamento.style.display = 'flex';
-// }
+console.log("Arquivo principal conectado !!!")
 
 //Função que adiciona os items na parte do pagamento.
 function addItemsPagamento(){
@@ -290,8 +283,9 @@ function addItemsPagamento(){
         //Chama as funções que calcula o total por pessoa, e a função que mostra o total da compra.
         calculaTotalPessoa();
         insertDetalhesPagamento();
-        calculaPagoAndFalta();
+        calculaPagoTrocoFalta();
         openAndCloseModalPagamento();
+        addMetodosPagamentos();
         
     }
 
@@ -393,7 +387,7 @@ function addMetodosPagamentos(){
             console.log(metodosPagamentos);
 
             addMetodosPagamentos();
-            calculaPagoAndFalta()
+            calculaPagoTrocoFalta();
         }
     })
 }
@@ -484,10 +478,12 @@ function escolherValorMetodo(metodo){
     }
 }
 
-function calculaPagoAndFalta(){
+
+function calculaPagoTrocoFalta(){
     const div_faltaPago = document.querySelector('.div_faltaPago');
 
     let pago = 0;
+    let troco = 0;
 
     metodosPagamentos.forEach(item => {
         item.valor = parseFloat(item.valor)
@@ -496,7 +492,15 @@ function calculaPagoAndFalta(){
 
     let falta = somaTotalProdutos - pago;
 
+    if(falta < 0){
+        troco = falta * (-1);
+        falta = 0;
+    }
+
+
     falta = formatarValorParaReal(falta);
+
+    troco = formatarValorParaReal(troco)
 
     pago = formatarValorParaReal(pago);
 
@@ -504,9 +508,11 @@ function calculaPagoAndFalta(){
 
     div_faltaPago.innerHTML = `
     <span>Falta: ${falta}</span>
+    <span>Troco: ${troco}</span>
     <span>Pago: ${pago}</span>
     `
 }
+
 
 function concluirOperacaoMetodoPagamento(){
     const valorDigitadoMetodo = document.getElementById('valorDigitadoMetodo');
@@ -518,7 +524,7 @@ function concluirOperacaoMetodoPagamento(){
         valorDigitadoMetodo.value = 0;
     }
 
-    calculaPagoAndFalta()
+    calculaPagoTrocoFalta()
 }
 
 
@@ -526,6 +532,7 @@ function voltarProcesso(){
     openAndCloseModalPagamento();
 
     metodosPagamentos = [];
+    
 }
 
 
